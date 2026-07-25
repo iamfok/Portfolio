@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohd. Fokrul Islam — Digital Marketing Manager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0F2036;
+    --ink-soft:#4A5568;
+    --paper:#F6F7F6;
+    --paper-raised:#FFFFFF;
+    --line:#DDE2E0;
+    --growth:#1B8A5A;
+    --growth-soft:#E7F4EC;
+    --signal:#C9720B;
+    --signal-soft:#FBEEDD;
+    --placeholder:#B5424C;
+    --placeholder-soft:#FBEAEC;
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'IBM Plex Sans', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--body);
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 32px;}
+  @media (max-width:640px){ .wrap{padding:0 20px;} }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky; top:0; z-index:100;
+    background:rgba(246,247,246,0.88);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:68px;
+  }
+  .brand{
+    font-family:var(--display); font-weight:700; font-size:17px;
+    letter-spacing:0.02em;
+  }
+  .brand span{color:var(--growth);}
+  .navlinks{display:flex; gap:28px; font-size:14px; font-weight:500;}
+  .navlinks a{text-decoration:none; color:var(--ink-soft); transition:color .15s;}
+  .navlinks a:hover{color:var(--growth);}
+  .navlinks{display:none;}
+  @media (min-width:760px){ .navlinks{display:flex;} }
+  .nav-cta{
+    font-family:var(--mono); font-size:12px; font-weight:600;
+    border:1px solid var(--ink); padding:9px 16px; border-radius:2px;
+    text-decoration:none; letter-spacing:0.04em;
+    transition:background .15s, color .15s;
+    white-space:nowrap;
+  }
+  .nav-cta:hover{background:var(--ink); color:var(--paper);}
+
+  /* ---------- HERO ---------- */
+  header.hero{padding:88px 0 64px; border-bottom:1px solid var(--line);}
+  .eyebrow{
+    font-family:var(--mono); font-size:12px; letter-spacing:0.12em;
+    color:var(--growth); text-transform:uppercase; font-weight:600;
+    display:flex; align-items:center; gap:10px; margin-bottom:22px;
+  }
+  .eyebrow::before{content:''; width:26px; height:1px; background:var(--growth);}
+  h1.headline{
+    font-family:var(--display); font-weight:700;
+    font-size:clamp(34px, 5.4vw, 58px);
+    line-height:1.08; letter-spacing:-0.01em;
+    max-width:820px; margin-bottom:22px;
+  }
+  h1.headline .accent{color:var(--growth);}
+  .subhead{
+    font-size:17px; color:var(--ink-soft); max-width:600px; margin-bottom:36px;
+  }
+  .hero-meta{
+    display:flex; flex-wrap:wrap; gap:10px 22px; font-size:13.5px; color:var(--ink-soft);
+    font-family:var(--mono); margin-bottom:44px;
+  }
+  .hero-meta span{display:flex; align-items:center; gap:7px;}
+  .dot{width:5px; height:5px; border-radius:50%; background:var(--growth); display:inline-block;}
+
+  /* stat ticker */
+  .ticker{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+    background:var(--line); border:1px solid var(--line);
+  }
+  @media (max-width:700px){ .ticker{grid-template-columns:repeat(2,1fr);} }
+  .stat{
+    background:var(--paper-raised); padding:24px 20px;
+  }
+  .stat .num{
+    font-family:var(--mono); font-weight:600; font-size:clamp(22px,3vw,30px);
+    color:var(--ink); display:block;
+  }
+  .stat .num small{font-size:15px; font-weight:500; color:var(--growth);}
+  .stat .label{
+    font-size:12px; color:var(--ink-soft); margin-top:6px; letter-spacing:0.01em;
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:64px 0; border-bottom:1px solid var(--line);}
+  .sec-head{display:flex; align-items:baseline; gap:16px; margin-bottom:36px;}
+  .sec-num{font-family:var(--mono); font-size:13px; color:var(--growth); font-weight:600;}
+  .sec-title{font-family:var(--display); font-size:26px; font-weight:700;}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid; grid-template-columns:200px 1fr; gap:48px; align-items:start;}
+  @media (max-width:680px){ .about-grid{grid-template-columns:1fr;} }
+  .avatar{
+    width:160px; height:160px; border-radius:6px;
+    background:linear-gradient(155deg,#132A45,var(--ink));
+    color:#fff; font-family:var(--display); font-weight:700; font-size:44px;
+    display:flex; align-items:center; justify-content:center;
+    letter-spacing:0.02em;
+  }
+  .about-text p{color:var(--ink-soft); font-size:15.5px; margin-bottom:16px; max-width:560px;}
+  .about-text p:last-child{margin-bottom:0;}
+
+  /* ---------- EXPERIENCE ---------- */
+  .timeline{border-left:2px solid var(--line); margin-left:6px; padding-left:32px;}
+  .job{position:relative; padding-bottom:40px;}
+  .job:last-child{padding-bottom:0;}
+  .job::before{
+    content:''; position:absolute; left:-38px; top:4px;
+    width:11px; height:11px; border-radius:50%;
+    background:var(--paper); border:2px solid var(--growth);
+  }
+  .job-head{display:flex; flex-wrap:wrap; justify-content:space-between; align-items:baseline; gap:8px 20px; margin-bottom:8px;}
+  .job-title{font-family:var(--display); font-weight:600; font-size:17.5px;}
+  .job-title .co{color:var(--growth);}
+  .job-date{font-family:var(--mono); font-size:12.5px; color:var(--ink-soft); white-space:nowrap;}
+  .job ul{list-style:none;}
+  .job li{
+    position:relative; padding-left:16px; font-size:14.5px; color:var(--ink-soft);
+    margin-bottom:7px;
+  }
+  .job li::before{content:'—'; position:absolute; left:0; color:var(--growth);}
+  .gap-note{
+    font-family:var(--mono); font-size:12.5px; color:var(--ink-soft);
+    font-style:italic; margin:6px 0 34px 0; position:relative;
+  }
+
+  /* ---------- SKILLS ---------- */
+  .skill-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:28px 40px;}
+  @media (max-width:680px){ .skill-grid{grid-template-columns:1fr;} }
+  .skill-group h4{
+    font-family:var(--mono); font-size:12.5px; letter-spacing:0.06em;
+    text-transform:uppercase; color:var(--growth); margin-bottom:12px; font-weight:600;
+  }
+  .pillbox{display:flex; flex-wrap:wrap; gap:8px;}
+  .pill{
+    font-size:13px; padding:6px 12px; border-radius:2px;
+    background:var(--paper-raised); border:1px solid var(--line); color:var(--ink);
+  }
+
+  /* ---------- CASE STUDIES ---------- */
+  .case-grid{display:grid; grid-template-columns:1fr; gap:22px;}
+  .case-card{
+    background:var(--paper-raised); border:1px solid var(--line); border-radius:4px;
+    padding:28px; display:grid; grid-template-columns:1.1fr 1fr; gap:28px;
+  }
+  @media (max-width:760px){ .case-card{grid-template-columns:1fr;} }
+  .case-tag{
+    font-family:var(--mono); font-size:11.5px; color:var(--growth); font-weight:600;
+    letter-spacing:0.05em; text-transform:uppercase; margin-bottom:8px; display:block;
+  }
+  .case-title{font-family:var(--display); font-weight:600; font-size:19px; margin-bottom:12px;}
+  .case-card p{font-size:14px; color:var(--ink-soft); margin-bottom:10px;}
+  .case-card p b{color:var(--ink); font-weight:600;}
+  .case-media{
+    border:1.5px dashed var(--placeholder); border-radius:4px;
+    background:var(--placeholder-soft); color:var(--placeholder);
+    display:flex; align-items:center; justify-content:center; text-align:center;
+    font-family:var(--mono); font-size:12.5px; padding:20px; min-height:140px;
+  }
+  .fill{
+    color:var(--placeholder); background:var(--placeholder-soft);
+    padding:1px 6px; border-radius:2px; font-family:var(--mono); font-size:13px;
+    border:1px dashed var(--placeholder);
+  }
+
+  /* ---------- CERTS ---------- */
+  .cert-row{display:flex; flex-wrap:wrap; gap:14px;}
+  .cert{
+    display:flex; align-items:center; gap:10px;
+    background:var(--paper-raised); border:1px solid var(--line); border-radius:4px;
+    padding:14px 18px; font-size:13.5px; min-width:240px; flex:1 1 240px;
+  }
+  .cert .badge{
+    width:30px; height:30px; border-radius:50%; background:var(--growth-soft);
+    color:var(--growth); display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono); font-weight:700; font-size:13px; flex-shrink:0;
+  }
+  .cert .name{font-weight:600;}
+  .cert .issuer{color:var(--ink-soft); font-size:12px;}
+
+  /* ---------- CONTACT / FOOTER ---------- */
+  footer{padding:72px 0 40px;}
+  .contact-inner{
+    display:flex; flex-wrap:wrap; justify-content:space-between; gap:36px;
+  }
+  .contact-cta h2{
+    font-family:var(--display); font-size:clamp(26px,3.6vw,36px); font-weight:700;
+    max-width:460px; line-height:1.15; margin-bottom:14px;
+  }
+  .contact-cta p{color:var(--ink-soft); font-size:14.5px; max-width:420px;}
+  .contact-links{display:flex; flex-direction:column; gap:14px; font-family:var(--mono); font-size:14px;}
+  .contact-links a{text-decoration:none; display:flex; align-items:center; gap:10px;}
+  .contact-links a:hover{color:var(--growth);}
+  .contact-links .k{color:var(--ink-soft); width:70px; display:inline-block; font-size:11.5px; text-transform:uppercase; letter-spacing:0.06em;}
+  .foot-bottom{
+    margin-top:56px; padding-top:20px; border-top:1px solid var(--line);
+    display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px;
+    font-size:12px; color:var(--ink-soft);
+  }
+
+  /* reveal on scroll */
+  .reveal{opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1; transform:none; transition:none;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">FOKRUL ISLAM<span>.</span></div>
+    <div class="navlinks">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#work">Case Studies</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a class="nav-cta" href="mailto:fokrul.islam.arno@gmail.com">GET IN TOUCH</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Digital Marketing Manager</div>
+    <h1 class="headline">Turning ad budgets into <span class="accent">pipeline, brand equity,</span> and growth.</h1>
+    <p class="subhead">7+ years leading full-funnel digital strategy, brand management, and performance marketing across EdTech, Real Estate, FMCG, and International Education — from Dhaka to markets across South Asia and MENA.</p>
+    <div class="hero-meta">
+      <span><span class="dot"></span>Dhanmondi, Dhaka, Bangladesh</span>
+      <span><span class="dot"></span>fokrul.islam.arno@gmail.com</span>
+      <span><span class="dot"></span>+8801723579924</span>
+      <span><span class="dot"></span>linkedin.com/in/mfisarno</span>
+    </div>
+
+    <div class="ticker reveal">
+      <div class="stat">
+        <span class="num" data-count="7">0<small>+</small></span>
+        <span class="label">Years in digital &amp; brand marketing</span>
+      </div>
+      <div class="stat">
+        <span class="num">$<span data-count="150">0</span><small>K+</small></span>
+        <span class="label">Annual ad budget managed</span>
+      </div>
+      <div class="stat">
+        <span class="num" data-count="20">0<small>%</small></span>
+        <span class="label">Reduction in cost per lead</span>
+      </div>
+      <div class="stat">
+        <span class="num"><span data-count="3.4" data-decimal="1">0</span><small>x</small></span>
+        <span class="label">Peak ROAS achieved</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">01</span><span class="sec-title">About</span></div>
+    <div class="about-grid reveal">
+      <div class="avatar">MFI</div>
+      <div class="about-text">
+        <p>I'm a results-driven marketing professional who works at the intersection of performance media and brand building. Over the last seven years I've managed digital and offline marketing for brands across the EdTech, Real Estate, FMCG, and International Education sectors — running paid campaigns on Meta, Google, TikTok, and LinkedIn while also owning brand positioning, creative direction, and on-ground activations for client accounts.</p>
+        <p>Currently, as Manager of Digital Marketing at Course Hunter, I lead strategy and execution for multiple partner brands — including AHZ Associates and MIE English Bangladesh — across digital, branding, and offline marketing, managing $150K+ in annual budgets and cross-functional creative teams.</p>
+        <p><span class="fill">[ADD: a short personal note on what drives you / your marketing philosophy — 1–2 sentences]</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">02</span><span class="sec-title">Experience</span></div>
+    <div class="timeline reveal">
+
+      <div class="job">
+        <div class="job-head">
+          <div class="job-title">Manager, Digital Marketing · <span class="co">Course Hunter</span></div>
+          <div class="job-date">Aug 2024 — Present</div>
+        </div>
+        <ul>
+          <li>Own brand strategy and digital marketing for client accounts including AHZ Associates (Nepal &amp; Sri Lanka) and MIE English Bangladesh.</li>
+          <li>Oversee branding and offline marketing (print, on-ground activations, collateral) alongside digital campaigns for client accounts.</li>
+          <li>Manage $150K+ annual marketing budget across digital and offline channels; reduced cost per lead by 20%.</li>
+          <li>Lead cross-functional creative and marketing teams across <span class="fill">[ADD: team size]</span> members.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-head">
+          <div class="job-title">Sr. Executive, Media Buying (Remote) · <span class="co">iBusinessFormula</span></div>
+          <div class="job-date">Feb 2024 — Aug 2024</div>
+        </div>
+        <ul>
+          <li>Managed paid media strategy for international eCommerce clients across Meta, Google, and TikTok.</li>
+          <li>Reduced average CPA by 18% and increased conversion rates by 22% through audience refinement.</li>
+          <li>Improved campaign ROAS from 2.8x to 3.4x across managed accounts.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-head">
+          <div class="job-title">Sr. Executive, Digital Marketing — Global Team Lead · <span class="co">TCL Global</span></div>
+          <div class="job-date">Feb 2022 — Jan 2024</div>
+        </div>
+        <ul>
+          <li>Led digital marketing and brand strategy across six international markets — Bangladesh, India, Pakistan, Nepal, Sri Lanka, and MENA.</li>
+          <li>Managed $50K+ annual media budgets; increased lead generation by 28%.</li>
+          <li>Delivered executive-level performance reporting across all markets to senior leadership.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-head">
+          <div class="job-title">Territory Manager (Sales) · <span class="co">RSPL Health Ltd.</span></div>
+          <div class="job-date">Jan 2021 — Jan 2022</div>
+        </div>
+        <ul>
+          <li>Achieved 90% of annual territory sales targets through market expansion and distributor engagement.</li>
+          <li>Increased retail coverage by 14% across assigned territories.</li>
+        </ul>
+      </div>
+
+      <div class="gap-note">Career Break (Jun 2020 — Jan 2021): professional certifications and skill development in digital marketing during the COVID-19 pandemic.</div>
+
+      <div class="job">
+        <div class="job-head">
+          <div class="job-title">Executive, Branding · <span class="co">Shamsul Alamin Real Estate Ltd.</span></div>
+          <div class="job-date">Jun 2018 — Jun 2020</div>
+        </div>
+        <ul>
+          <li>Planned integrated offline brand campaigns — outdoor advertising, print, event activations — for real estate project launches.</li>
+          <li>Managed BTL activities and brand guidelines, coordinating with 13+ vendors for consistent, on-brand delivery.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">03</span><span class="sec-title">Skills &amp; Tools</span></div>
+    <div class="skill-grid reveal">
+      <div class="skill-group">
+        <h4>Strategy &amp; Growth</h4>
+        <div class="pillbox">
+          <span class="pill">Digital Marketing Strategy</span>
+          <span class="pill">Brand Strategy &amp; Positioning</span>
+          <span class="pill">Full-Funnel Marketing</span>
+          <span class="pill">Campaign Planning</span>
+          <span class="pill">Growth Marketing</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Paid Media &amp; Analytics</h4>
+        <div class="pillbox">
+          <span class="pill">Meta Ads</span>
+          <span class="pill">Google Ads</span>
+          <span class="pill">TikTok Ads</span>
+          <span class="pill">LinkedIn Ads</span>
+          <span class="pill">GA4</span>
+          <span class="pill">Looker Studio</span>
+          <span class="pill">ROI &amp; ROAS Analysis</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Brand &amp; Offline Marketing</h4>
+        <div class="pillbox">
+          <span class="pill">Visual Identity Management</span>
+          <span class="pill">Print &amp; Outdoor Advertising</span>
+          <span class="pill">BTL Activations</span>
+          <span class="pill">Event Campaigns</span>
+          <span class="pill">Vendor Management</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Business &amp; Leadership</h4>
+        <div class="pillbox">
+          <span class="pill">Team Leadership</span>
+          <span class="pill">Stakeholder Management</span>
+          <span class="pill">Client Account Management</span>
+          <span class="pill">Budget Management</span>
+          <span class="pill">Cross-functional Collaboration</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">04</span><span class="sec-title">Case Studies</span></div>
+    <div class="case-grid reveal">
+
+      <div class="case-card">
+        <div>
+          <span class="case-tag">Course Hunter × AHZ Associates &amp; MIE English</span>
+          <div class="case-title">Multi-brand, multi-market student acquisition</div>
+          <p><b>Challenge:</b> Grow student enrollment for partner brands across Nepal, Sri Lanka, and Bangladesh while keeping brand identity consistent across digital and offline touchpoints.</p>
+          <p><b>Approach:</b> Full-funnel strategy across Meta and Google, paired with offline activations and brand guidelines for each partner market.</p>
+          <p><b>Result:</b> Reduced cost per lead by 20% on a $150K+ annual budget. <span class="fill">[ADD: enrollment numbers / lead volume / specific market results]</span></p>
+        </div>
+        <div class="case-media">[ADD: campaign screenshot, creative sample, or performance dashboard image]</div>
+      </div>
+
+      <div class="case-card">
+        <div>
+          <span class="case-tag">iBusinessFormula — eCommerce clients</span>
+          <div class="case-title">Scaling ROAS for international retail accounts</div>
+          <p><b>Challenge:</b> International eCommerce clients needed lower CPA and higher conversion from paid social and search.</p>
+          <p><b>Approach:</b> Audience segmentation, creative A/B testing, and iterative optimization across Meta, Google, and TikTok.</p>
+          <p><b>Result:</b> Reduced CPA by 18%, increased conversions by 22%, improved ROAS from 2.8x to 3.4x. <span class="fill">[ADD: client name/industry if shareable, revenue impact]</span></p>
+        </div>
+        <div class="case-media">[ADD: before/after performance chart or ad creative]</div>
+      </div>
+
+      <div class="case-card">
+        <div>
+          <span class="case-tag">TCL Global — Six-market expansion</span>
+          <div class="case-title">Unified brand &amp; lead-gen strategy across six countries</div>
+          <p><b>Challenge:</b> Maintain one consistent brand voice and lead-gen engine across Bangladesh, India, Pakistan, Nepal, Sri Lanka, and MENA.</p>
+          <p><b>Approach:</b> Centralized creative direction and messaging framework, localized media execution per market, $50K+ annual budget.</p>
+          <p><b>Result:</b> Increased lead generation by 28% across markets. <span class="fill">[ADD: specific country-level wins or a standout campaign]</span></p>
+        </div>
+        <div class="case-media">[ADD: regional campaign visual or map graphic]</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="certs">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">05</span><span class="sec-title">Certifications</span></div>
+    <div class="cert-row reveal">
+      <div class="cert"><div class="badge">G</div><div><div class="name">Google Ads Search</div><div class="issuer">Google Skillshop</div></div></div>
+      <div class="cert"><div class="badge">M</div><div><div class="name">Meta Social Media Marketing</div><div class="issuer">Meta &amp; Coursera</div></div></div>
+      <div class="cert"><div class="badge">G</div><div><div class="name">Fundamentals of Digital Marketing</div><div class="issuer">Google Digital Garage</div></div></div>
+      <div class="cert"><div class="badge">B</div><div><div class="name">Delivering Service Excellence</div><div class="issuer">British Council</div></div></div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="contact-inner reveal">
+      <div class="contact-cta">
+        <h2>Let's talk about your next campaign, brand, or growth goal.</h2>
+        <p>Open to Digital Marketing Manager, Brand Manager, Brand Communication Manager, and Marketing Manager roles — remote or Dhaka-based.</p>
+      </div>
+      <div class="contact-links">
+        <a href="mailto:fokrul.islam.arno@gmail.com"><span class="k">Email</span>fokrul.islam.arno@gmail.com</a>
+        <a href="tel:+8801723579924"><span class="k">Phone</span>+880 1723 579924</a>
+        <a href="https://linkedin.com/in/mfisarno" target="_blank" rel="noopener"><span class="k">LinkedIn</span>linkedin.com/in/mfisarno</a>
+        <a href="#"><span class="k">Resume</span><span class="fill">[ADD: link to hosted resume PDF]</span></a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>Mohd. Fokrul Islam — Dhanmondi, Dhaka, Bangladesh</span>
+      <span><span class="fill">[ADD: portfolio domain / hosting link once published]</span></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.15});
+  revealEls.forEach(el=>io.observe(el));
+  document.querySelector('.ticker').classList.add('in'); // hero stats visible immediately
+
+  // count-up animation for stats
+  const counters = document.querySelectorAll('[data-count]');
+  counters.forEach(el=>{
+    const target = parseFloat(el.getAttribute('data-count'));
+    const decimals = parseInt(el.getAttribute('data-decimal') || '0');
+    let current = 0;
+    const duration = 1200;
+    const start = performance.now();
+    function tick(now){
+      const p = Math.min((now-start)/duration, 1);
+      current = target * p;
+      el.textContent = current.toFixed(decimals);
+      if(p < 1) requestAnimationFrame(tick);
+      else el.textContent = target.toFixed(decimals);
+    }
+    requestAnimationFrame(tick);
+  });
+</script>
+
+</body>
+</html>
