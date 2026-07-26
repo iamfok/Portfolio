@@ -31,9 +31,11 @@
     color:var(--ink);
     line-height:1.6;
     -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
   }
   a{color:inherit;}
-  .wrap{max-width:1080px; margin:0 auto; padding:0 32px;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 32px; position:relative;}
   @media (max-width:640px){ .wrap{padding:0 20px;} }
 
   /* ---------- NAV ---------- */
@@ -52,22 +54,37 @@
     letter-spacing:0.02em;
   }
   .brand span{color:var(--growth);}
-  .navlinks{display:flex; gap:28px; font-size:14px; font-weight:500;}
+  .navlinks{display:flex; gap:26px; font-size:14px; font-weight:500;}
   .navlinks a{text-decoration:none; color:var(--ink-soft); transition:color .15s;}
   .navlinks a:hover{color:var(--growth);}
   .navlinks{display:none;}
-  @media (min-width:760px){ .navlinks{display:flex;} }
-  .nav-cta{
+  @media (min-width:860px){ .navlinks{display:flex;} }
+  .nav-ctas{display:flex; align-items:center; gap:10px;}
+  .btn{
     font-family:var(--mono); font-size:12px; font-weight:600;
-    border:1px solid var(--ink); padding:9px 16px; border-radius:2px;
+    padding:9px 16px; border-radius:2px;
     text-decoration:none; letter-spacing:0.04em;
-    transition:background .15s, color .15s;
-    white-space:nowrap;
+    transition:background .15s, color .15s, border-color .15s;
+    white-space:nowrap; display:inline-flex; align-items:center; gap:7px;
+    cursor:pointer; border:1px solid var(--ink);
   }
-  .nav-cta:hover{background:var(--ink); color:var(--paper);}
+  .btn-outline{background:transparent; color:var(--ink);}
+  .btn-outline:hover{background:var(--ink); color:var(--paper);}
+  .btn-solid{background:var(--growth); border-color:var(--growth); color:#fff;}
+  .btn-solid:hover{background:#146b45; border-color:#146b45;}
+  .nav-ctas .btn-outline{display:none;}
+  @media (min-width:520px){ .nav-ctas .btn-outline{display:inline-flex;} }
 
   /* ---------- HERO ---------- */
-  header.hero{padding:88px 0 64px; border-bottom:1px solid var(--line);}
+  header.hero{border-bottom:1px solid var(--line); position:relative; overflow:hidden;}
+  .hero-grid{
+    display:grid; grid-template-columns:1.15fr 1fr; align-items:stretch; min-height:560px;
+  }
+  @media (max-width:900px){ .hero-grid{grid-template-columns:1fr; min-height:auto;} }
+
+  .hero-copy{padding:88px 32px 64px 32px; max-width:620px;}
+  @media (max-width:640px){ .hero-copy{padding:64px 20px 48px 20px;} }
+
   .eyebrow{
     font-family:var(--mono); font-size:12px; letter-spacing:0.12em;
     color:var(--growth); text-transform:uppercase; font-weight:600;
@@ -76,54 +93,85 @@
   .eyebrow::before{content:''; width:26px; height:1px; background:var(--growth);}
   h1.headline{
     font-family:var(--display); font-weight:700;
-    font-size:clamp(34px, 5.4vw, 58px);
-    line-height:1.08; letter-spacing:-0.01em;
-    max-width:820px; margin-bottom:22px;
+    font-size:clamp(32px, 4.6vw, 52px);
+    line-height:1.1; letter-spacing:-0.01em;
+    margin-bottom:22px;
   }
   h1.headline .accent{color:var(--growth);}
   .subhead{
-    font-size:17px; color:var(--ink-soft); max-width:600px; margin-bottom:36px;
+    font-size:16.5px; color:var(--ink-soft); margin-bottom:32px;
   }
   .hero-meta{
-    display:flex; flex-wrap:wrap; gap:10px 22px; font-size:13.5px; color:var(--ink-soft);
-    font-family:var(--mono); margin-bottom:44px;
+    display:flex; flex-wrap:wrap; gap:10px 22px; font-size:13px; color:var(--ink-soft);
+    font-family:var(--mono); margin-bottom:36px;
   }
   .hero-meta span{display:flex; align-items:center; gap:7px;}
-  .dot{width:5px; height:5px; border-radius:50%; background:var(--growth); display:inline-block;}
+  .dot{width:5px; height:5px; border-radius:50%; background:var(--growth); display:inline-block; flex-shrink:0;}
+  .hero-actions{display:flex; flex-wrap:wrap; gap:12px;}
+
+  /* right visual panel: image + dynamic texture overlay */
+  .hero-visual{
+    position:relative; overflow:hidden; background:var(--ink);
+    min-height:340px;
+  }
+  .hero-visual img.bg{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+    opacity:0.55; filter:grayscale(35%) contrast(1.05);
+  }
+  .hero-visual .tint{
+    position:absolute; inset:0;
+    background:linear-gradient(155deg, rgba(15,32,54,0.35), rgba(15,32,54,0.85) 75%);
+  }
+  .hero-visual canvas{position:absolute; inset:0; width:100%; height:100%;}
+  .hero-visual .visual-caption{
+    position:absolute; left:24px; bottom:22px; right:24px;
+    font-family:var(--mono); font-size:11px; color:rgba(255,255,255,0.7);
+    letter-spacing:0.04em;
+  }
+  .hero-visual .fill-note{
+    position:absolute; top:18px; right:18px;
+    font-family:var(--mono); font-size:10.5px; color:#fff;
+    background:rgba(181,66,76,0.85); padding:5px 9px; border-radius:2px;
+    letter-spacing:0.02em; max-width:170px; text-align:right; line-height:1.4;
+  }
 
   /* stat ticker */
   .ticker{
     display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
-    background:var(--line); border:1px solid var(--line);
+    background:var(--line); border-top:1px solid var(--line);
   }
   @media (max-width:700px){ .ticker{grid-template-columns:repeat(2,1fr);} }
-  .stat{
-    background:var(--paper-raised); padding:24px 20px;
-  }
+  .stat{ background:var(--paper-raised); padding:22px 20px; }
   .stat .num{
-    font-family:var(--mono); font-weight:600; font-size:clamp(22px,3vw,30px);
+    font-family:var(--mono); font-weight:600; font-size:clamp(22px,3vw,28px);
     color:var(--ink); display:block;
   }
   .stat .num small{font-size:15px; font-weight:500; color:var(--growth);}
-  .stat .label{
-    font-size:12px; color:var(--ink-soft); margin-top:6px; letter-spacing:0.01em;
-  }
+  .stat .label{ font-size:12px; color:var(--ink-soft); margin-top:6px; }
 
   /* ---------- SECTION SHELL ---------- */
   section{padding:64px 0; border-bottom:1px solid var(--line);}
-  .sec-head{display:flex; align-items:baseline; gap:16px; margin-bottom:36px;}
+  .sec-head{display:flex; align-items:baseline; gap:16px; margin-bottom:36px; flex-wrap:wrap;}
   .sec-num{font-family:var(--mono); font-size:13px; color:var(--growth); font-weight:600;}
   .sec-title{font-family:var(--display); font-size:26px; font-weight:700;}
+  .sec-sub{font-size:13.5px; color:var(--ink-soft); margin-left:auto; font-family:var(--mono);}
+  @media (max-width:640px){ .sec-sub{margin-left:0; width:100%;} }
 
   /* ---------- ABOUT ---------- */
-  .about-grid{display:grid; grid-template-columns:200px 1fr; gap:48px; align-items:start;}
-  @media (max-width:680px){ .about-grid{grid-template-columns:1fr;} }
-  .avatar{
-    width:160px; height:160px; border-radius:6px;
-    background:linear-gradient(155deg,#132A45,var(--ink));
-    color:#fff; font-family:var(--display); font-weight:700; font-size:44px;
-    display:flex; align-items:center; justify-content:center;
-    letter-spacing:0.02em;
+  .about-grid{display:grid; grid-template-columns:220px 1fr; gap:48px; align-items:start;}
+  @media (max-width:680px){ .about-grid{grid-template-columns:1fr; justify-items:center;} }
+  .portrait-frame{
+    width:220px; aspect-ratio:4/5; border-radius:6px; overflow:hidden;
+    position:relative; background:linear-gradient(155deg,#132A45,var(--ink));
+    flex-shrink:0;
+  }
+  .portrait-frame img{
+    width:100%; height:100%; object-fit:cover; object-position:center top;
+  }
+  .portrait-frame .portrait-tag{
+    position:absolute; bottom:0; left:0; right:0;
+    background:rgba(15,32,54,0.75); color:#fff; font-family:var(--mono);
+    font-size:10px; padding:6px 8px; text-align:center; letter-spacing:0.02em;
   }
   .about-text p{color:var(--ink-soft); font-size:15.5px; margin-bottom:16px; max-width:560px;}
   .about-text p:last-child{margin-bottom:0;}
@@ -142,10 +190,7 @@
   .job-title .co{color:var(--growth);}
   .job-date{font-family:var(--mono); font-size:12.5px; color:var(--ink-soft); white-space:nowrap;}
   .job ul{list-style:none;}
-  .job li{
-    position:relative; padding-left:16px; font-size:14.5px; color:var(--ink-soft);
-    margin-bottom:7px;
-  }
+  .job li{ position:relative; padding-left:16px; font-size:14.5px; color:var(--ink-soft); margin-bottom:7px; }
   .job li::before{content:'—'; position:absolute; left:0; color:var(--growth);}
   .gap-note{
     font-family:var(--mono); font-size:12.5px; color:var(--ink-soft);
@@ -160,10 +205,7 @@
     text-transform:uppercase; color:var(--growth); margin-bottom:12px; font-weight:600;
   }
   .pillbox{display:flex; flex-wrap:wrap; gap:8px;}
-  .pill{
-    font-size:13px; padding:6px 12px; border-radius:2px;
-    background:var(--paper-raised); border:1px solid var(--line); color:var(--ink);
-  }
+  .pill{ font-size:13px; padding:6px 12px; border-radius:2px; background:var(--paper-raised); border:1px solid var(--line); color:var(--ink); }
 
   /* ---------- CASE STUDIES ---------- */
   .case-grid{display:grid; grid-template-columns:1fr; gap:22px;}
@@ -180,24 +222,40 @@
   .case-card p{font-size:14px; color:var(--ink-soft); margin-bottom:10px;}
   .case-card p b{color:var(--ink); font-weight:600;}
   .case-media{
-    border:1.5px dashed var(--placeholder); border-radius:4px;
-    background:var(--placeholder-soft); color:var(--placeholder);
-    display:flex; align-items:center; justify-content:center; text-align:center;
-    font-family:var(--mono); font-size:12.5px; padding:20px; min-height:140px;
+    border-radius:4px; overflow:hidden; position:relative; min-height:160px;
+    cursor:pointer; background:var(--paper);
+  }
+  .case-media img{ width:100%; height:100%; object-fit:cover; min-height:160px; transition:transform .4s ease; }
+  .case-media:hover img{ transform:scale(1.04); }
+  .case-media .media-flag{
+    position:absolute; top:10px; right:10px; font-family:var(--mono); font-size:10px;
+    background:rgba(181,66,76,0.9); color:#fff; padding:4px 8px; border-radius:2px; letter-spacing:0.02em;
   }
   .fill{
     color:var(--placeholder); background:var(--placeholder-soft);
     padding:1px 6px; border-radius:2px; font-family:var(--mono); font-size:13px;
     border:1px dashed var(--placeholder);
   }
+  .case-card.empty{
+    display:flex; align-items:center; justify-content:center; text-align:center;
+    border:1.5px dashed var(--line); background:transparent;
+  }
+  .case-card.empty .add-inner{max-width:360px;}
+  .case-card.empty .add-inner .plus{
+    font-family:var(--display); font-size:34px; color:var(--growth); margin-bottom:10px;
+  }
+  .case-card.empty p{font-size:13.5px;}
 
-  /* ---------- CERTS ---------- */
+  /* ---------- CERTIFICATIONS ---------- */
   .cert-row{display:flex; flex-wrap:wrap; gap:14px;}
   .cert{
     display:flex; align-items:center; gap:10px;
     background:var(--paper-raised); border:1px solid var(--line); border-radius:4px;
     padding:14px 18px; font-size:13.5px; min-width:240px; flex:1 1 240px;
+    cursor:pointer; transition:border-color .15s, transform .15s; text-align:left;
+    font-family:var(--body); color:var(--ink);
   }
+  .cert:hover{border-color:var(--growth); transform:translateY(-2px);}
   .cert .badge{
     width:30px; height:30px; border-radius:50%; background:var(--growth-soft);
     color:var(--growth); display:flex; align-items:center; justify-content:center;
@@ -205,17 +263,63 @@
   }
   .cert .name{font-weight:600;}
   .cert .issuer{color:var(--ink-soft); font-size:12px;}
+  .cert .view-hint{ margin-left:auto; font-family:var(--mono); font-size:10.5px; color:var(--growth); white-space:nowrap; }
+
+  /* ---------- MEDIA & CREATIVE ---------- */
+  .tabs{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:26px;}
+  .tab-btn{
+    font-family:var(--mono); font-size:12px; font-weight:600; letter-spacing:0.02em;
+    padding:9px 16px; border-radius:2px; border:1px solid var(--line);
+    background:var(--paper-raised); color:var(--ink-soft); cursor:pointer;
+    transition:all .15s;
+  }
+  .tab-btn:hover{border-color:var(--growth); color:var(--ink);}
+  .tab-btn.active{background:var(--ink); border-color:var(--ink); color:#fff;}
+  .gallery-panel{display:none;}
+  .gallery-panel.active{display:block;}
+  .gallery-grid{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:14px;
+  }
+  @media (max-width:760px){ .gallery-grid{grid-template-columns:repeat(2,1fr);} }
+  .gallery-item{
+    aspect-ratio:4/5; border-radius:4px; overflow:hidden; cursor:pointer;
+    position:relative; background:var(--paper);
+  }
+  .gallery-item img{ width:100%; height:100%; object-fit:cover; transition:transform .4s ease; }
+  .gallery-item:hover img{ transform:scale(1.06); }
+  .gallery-item .cap{
+    position:absolute; left:0; right:0; bottom:0; padding:8px 10px;
+    background:linear-gradient(to top, rgba(15,32,54,0.85), transparent);
+    color:#fff; font-family:var(--mono); font-size:10.5px;
+  }
+  .panel-note{font-size:13px; color:var(--ink-soft); margin-bottom:16px;}
+
+  /* ---------- LIGHTBOX MODAL ---------- */
+  .lightbox{
+    position:fixed; inset:0; background:rgba(15,32,54,0.92); z-index:1000;
+    display:none; align-items:center; justify-content:center; padding:40px 20px;
+  }
+  .lightbox.open{display:flex;}
+  .lightbox img{ max-width:min(720px,90vw); max-height:80vh; border-radius:4px; object-fit:contain; background:#111; }
+  .lightbox .lb-cap{
+    position:absolute; bottom:28px; left:0; right:0; text-align:center;
+    font-family:var(--mono); font-size:12.5px; color:rgba(255,255,255,0.75);
+  }
+  .lightbox .lb-close{
+    position:absolute; top:22px; right:28px; color:#fff; font-family:var(--mono);
+    font-size:13px; cursor:pointer; border:1px solid rgba(255,255,255,0.4);
+    padding:8px 14px; border-radius:2px; background:transparent;
+  }
+  .lightbox .lb-close:hover{border-color:#fff;}
 
   /* ---------- CONTACT / FOOTER ---------- */
   footer{padding:72px 0 40px;}
-  .contact-inner{
-    display:flex; flex-wrap:wrap; justify-content:space-between; gap:36px;
-  }
+  .contact-inner{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:36px; }
   .contact-cta h2{
     font-family:var(--display); font-size:clamp(26px,3.6vw,36px); font-weight:700;
     max-width:460px; line-height:1.15; margin-bottom:14px;
   }
-  .contact-cta p{color:var(--ink-soft); font-size:14.5px; max-width:420px;}
+  .contact-cta p{color:var(--ink-soft); font-size:14.5px; max-width:420px; margin-bottom:20px;}
   .contact-links{display:flex; flex-direction:column; gap:14px; font-family:var(--mono); font-size:14px;}
   .contact-links a{text-decoration:none; display:flex; align-items:center; gap:10px;}
   .contact-links a:hover{color:var(--growth);}
@@ -226,7 +330,6 @@
     font-size:12px; color:var(--ink-soft);
   }
 
-  /* reveal on scroll */
   .reveal{opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease;}
   .reveal.in{opacity:1; transform:translateY(0);}
 
@@ -234,22 +337,6 @@
     .reveal{opacity:1; transform:none; transition:none;}
     html{scroll-behavior:auto;}
   }
-
-.resume-btn{
-    display:inline-block;
-    padding:10px 22px;
-    background:#0A2342;
-    color:#fff;
-    text-decoration:none;
-    border-radius:6px;
-    font-weight:600;
-    transition:.3s;
-}
-
-.resume-btn:hover{
-    background:#1e3a5f;
-}
-  
 </style>
 </head>
 <body>
@@ -262,41 +349,61 @@
       <a href="#experience">Experience</a>
       <a href="#skills">Skills</a>
       <a href="#work">Case Studies</a>
+      <a href="#media">Media</a>
       <a href="#contact">Contact</a>
     </div>
-    <a class="nav-cta" href="mailto:fokrul.islam.arno@gmail.com">GET IN TOUCH</a>
+    <div class="nav-ctas">
+      <!-- REPLACE href with your hosted resume PDF link, e.g. "resume/Fokrul_Islam_Resume.pdf" -->
+      <a class="btn btn-outline" href="#" download>⬇ Resume</a>
+      <a class="btn btn-solid" href="mailto:fokrul.islam.arno@gmail.com">Get in touch</a>
+    </div>
   </div>
 </nav>
 
 <header class="hero">
-  <div class="wrap">
-    <div class="eyebrow">Digital Marketing Manager</div>
-    <h1 class="headline">Turning ad budgets into <span class="accent">pipeline, brand equity,</span> and growth.</h1>
-    <p class="subhead">7+ years leading full-funnel digital strategy, brand management, and performance marketing across EdTech, Real Estate, FMCG, E-com and International Education — from Dhaka to markets across South Asia and MENA.</p>
-    <div class="hero-meta">
-      <span><span class="dot"></span>Dhanmondi, Dhaka, Bangladesh</span>
-      <span><span class="dot"></span>fokrul.islam.arno@gmail.com</span>
-      <span><span class="dot"></span>+8801723579924</span>
-      <span><span class="dot"></span>linkedin.com/in/mfisarno</span>
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <div class="eyebrow">Digital Marketing Manager</div>
+      <h1 class="headline">Turning ad budgets into <span class="accent">pipeline, brand equity,</span> and growth.</h1>
+      <p class="subhead">7+ years leading full-funnel digital strategy, brand management, and performance marketing across EdTech, Real Estate, FMCG, and International Education — from Dhaka to markets across South Asia and MENA.</p>
+      <div class="hero-meta">
+        <span><span class="dot"></span>Dhanmondi, Dhaka, Bangladesh</span>
+        <span><span class="dot"></span>fokrul.islam.arno@gmail.com</span>
+        <span><span class="dot"></span>+8801723579924</span>
+      </div>
+      <div class="hero-actions">
+        <a class="btn btn-solid" href="#work">View case studies</a>
+        <!-- REPLACE href with your hosted resume PDF link -->
+        <a class="btn btn-outline" href="#" download>⬇ Download Resume</a>
+      </div>
     </div>
 
-    <div class="ticker reveal">
-      <div class="stat">
-        <span class="num" data-count="7">0<small>+</small></span>
-        <span class="label">Years in digital &amp; brand marketing</span>
-      </div>
-      <div class="stat">
-        <span class="num">$<span data-count="150">0</span><small>K+</small></span>
-        <span class="label">Annual ad budget managed</span>
-      </div>
-      <div class="stat">
-        <span class="num" data-count="20">0<small>%</small></span>
-        <span class="label">Reduction in cost per lead</span>
-      </div>
-      <div class="stat">
-        <span class="num"><span data-count="3.4" data-decimal="1">0</span><small>x</small></span>
-        <span class="label">Peak ROAS achieved</span>
-      </div>
+    <div class="hero-visual" id="heroVisual">
+      <!-- REPLACE this src with your own photo or campaign/brand imagery -->
+      <img class="bg" src="https://picsum.photos/seed/fokrul-hero-bg/900/1200" alt="Placeholder background — replace with your own image">
+      <canvas id="heroCanvas"></canvas>
+      <div class="tint"></div>
+      <div class="fill-note">PLACEHOLDER — replace background image / texture source in code</div>
+      <div class="visual-caption">// campaigns in motion — Meta · Google · TikTok · LinkedIn</div>
+    </div>
+  </div>
+
+  <div class="ticker reveal">
+    <div class="stat">
+      <span class="num" data-count="7">0<small>+</small></span>
+      <span class="label">Years in digital &amp; brand marketing</span>
+    </div>
+    <div class="stat">
+      <span class="num">$<span data-count="150">0</span><small>K+</small></span>
+      <span class="label">Annual ad budget managed</span>
+    </div>
+    <div class="stat">
+      <span class="num" data-count="20">0<small>%</small></span>
+      <span class="label">Reduction in cost per lead</span>
+    </div>
+    <div class="stat">
+      <span class="num"><span data-count="3.4" data-decimal="1">0</span><small>x</small></span>
+      <span class="label">Peak ROAS achieved</span>
     </div>
   </div>
 </header>
@@ -305,7 +412,11 @@
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">01</span><span class="sec-title">About</span></div>
     <div class="about-grid reveal">
-      <div class="avatar">MFI</div>
+      <div class="portrait-frame">
+        <!-- REPLACE this src with your own 4:5 photo — it will auto-crop to fill the frame -->
+        <img src="https://picsum.photos/seed/fokrul-portrait/480/600" alt="Mohd. Fokrul Islam portrait — replace with your own photo">
+        <div class="portrait-tag">PLACEHOLDER — replace with your photo</div>
+      </div>
       <div class="about-text">
         <p>I'm a results-driven marketing professional who works at the intersection of performance media and brand building. Over the last seven years I've managed digital and offline marketing for brands across the EdTech, Real Estate, FMCG, and International Education sectors — running paid campaigns on Meta, Google, TikTok, and LinkedIn while also owning brand positioning, creative direction, and on-ground activations for client accounts.</p>
         <p>Currently, as Manager of Digital Marketing at Course Hunter, I lead strategy and execution for multiple partner brands — including AHZ Associates and MIE English Bangladesh — across digital, branding, and offline marketing, managing $150K+ in annual budgets and cross-functional creative teams.</p>
@@ -437,7 +548,10 @@
 
 <section id="work">
   <div class="wrap">
-    <div class="sec-head"><span class="sec-num">04</span><span class="sec-title">Case Studies</span></div>
+    <div class="sec-head">
+      <span class="sec-num">04</span><span class="sec-title">Case Studies</span>
+      <span class="sec-sub">click an image to preview</span>
+    </div>
     <div class="case-grid reveal">
 
       <div class="case-card">
@@ -446,9 +560,12 @@
           <div class="case-title">Multi-brand, multi-market student acquisition</div>
           <p><b>Challenge:</b> Grow student enrollment for partner brands across Nepal, Sri Lanka, and Bangladesh while keeping brand identity consistent across digital and offline touchpoints.</p>
           <p><b>Approach:</b> Full-funnel strategy across Meta and Google, paired with offline activations and brand guidelines for each partner market.</p>
-          <p><b>Result:</b> Reduced cost per lead by 20% on a $150K+ annual budget. <span class="fill">[ADD: enrollment numbers / lead volume / specific market results]</span></p>
+          <p><b>Result:</b> Reduced cost per lead by 20% on a $150K+ annual budget. <span class="fill">[ADD: enrollment numbers / lead volume]</span></p>
         </div>
-        <div class="case-media">[ADD: campaign screenshot, creative sample, or performance dashboard image]</div>
+        <div class="case-media" onclick="openLightbox('https://picsum.photos/seed/coursehunter-case/900/700','Course Hunter — replace with real campaign visual')">
+          <img src="https://picsum.photos/seed/coursehunter-case/900/700" alt="Course Hunter case study visual — placeholder">
+          <div class="media-flag">PLACEHOLDER</div>
+        </div>
       </div>
 
       <div class="case-card">
@@ -457,9 +574,12 @@
           <div class="case-title">Scaling ROAS for international retail accounts</div>
           <p><b>Challenge:</b> International eCommerce clients needed lower CPA and higher conversion from paid social and search.</p>
           <p><b>Approach:</b> Audience segmentation, creative A/B testing, and iterative optimization across Meta, Google, and TikTok.</p>
-          <p><b>Result:</b> Reduced CPA by 18%, increased conversions by 22%, improved ROAS from 2.8x to 3.4x. <span class="fill">[ADD: client name/industry if shareable, revenue impact]</span></p>
+          <p><b>Result:</b> Reduced CPA by 18%, increased conversions by 22%, improved ROAS from 2.8x to 3.4x. <span class="fill">[ADD: client name/industry if shareable]</span></p>
         </div>
-        <div class="case-media">[ADD: before/after performance chart or ad creative]</div>
+        <div class="case-media" onclick="openLightbox('https://picsum.photos/seed/ibusinessformula-case/900/700','iBusinessFormula — replace with real performance chart or creative')">
+          <img src="https://picsum.photos/seed/ibusinessformula-case/900/700" alt="iBusinessFormula case study visual — placeholder">
+          <div class="media-flag">PLACEHOLDER</div>
+        </div>
       </div>
 
       <div class="case-card">
@@ -468,9 +588,33 @@
           <div class="case-title">Unified brand &amp; lead-gen strategy across six countries</div>
           <p><b>Challenge:</b> Maintain one consistent brand voice and lead-gen engine across Bangladesh, India, Pakistan, Nepal, Sri Lanka, and MENA.</p>
           <p><b>Approach:</b> Centralized creative direction and messaging framework, localized media execution per market, $50K+ annual budget.</p>
-          <p><b>Result:</b> Increased lead generation by 28% across markets. <span class="fill">[ADD: specific country-level wins or a standout campaign]</span></p>
+          <p><b>Result:</b> Increased lead generation by 28% across markets. <span class="fill">[ADD: standout country-level win]</span></p>
         </div>
-        <div class="case-media">[ADD: regional campaign visual or map graphic]</div>
+        <div class="case-media" onclick="openLightbox('https://picsum.photos/seed/tclglobal-case/900/700','TCL Global — replace with regional campaign visual or map graphic')">
+          <img src="https://picsum.photos/seed/tclglobal-case/900/700" alt="TCL Global case study visual — placeholder">
+          <div class="media-flag">PLACEHOLDER</div>
+        </div>
+      </div>
+
+      <div class="case-card">
+        <div>
+          <span class="case-tag">Shamsul Alamin Real Estate Ltd.</span>
+          <div class="case-title">Integrated offline brand campaigns for project launches</div>
+          <p><b>Challenge:</b> Build consistent brand presence and drive footfall for multiple real estate project launches through offline channels.</p>
+          <p><b>Approach:</b> Outdoor advertising, print media, event activations, and BTL execution (billboards, POSM, signage) coordinated with 13+ vendors.</p>
+          <p><b>Result:</b> Consistent visual identity across all customer touchpoints — site offices, sales materials, and events. <span class="fill">[ADD: footfall / sales / launch-specific numbers]</span></p>
+        </div>
+        <div class="case-media" onclick="openLightbox('https://picsum.photos/seed/shamsulalamin-case/900/700','Shamsul Alamin Real Estate — replace with real BTL/print campaign photo')">
+          <img src="https://picsum.photos/seed/shamsulalamin-case/900/700" alt="Shamsul Alamin Real Estate case study visual — placeholder">
+          <div class="media-flag">PLACEHOLDER</div>
+        </div>
+      </div>
+
+      <div class="case-card empty">
+        <div class="add-inner">
+          <div class="plus">+</div>
+          <p><b>[ADD: your next case study]</b><br>Duplicate a card above, swap the challenge / approach / result copy and image, and drop it in here.</p>
+        </div>
       </div>
 
     </div>
@@ -479,12 +623,83 @@
 
 <section id="certs">
   <div class="wrap">
-    <div class="sec-head"><span class="sec-num">05</span><span class="sec-title">Certifications</span></div>
+    <div class="sec-head">
+      <span class="sec-num">05</span><span class="sec-title">Certifications</span>
+      <span class="sec-sub">click a card to view certificate</span>
+    </div>
     <div class="cert-row reveal">
-      <div class="cert"><div class="badge">G</div><div><div class="name">Google Ads Search</div><div class="issuer">Google Skillshop</div></div></div>
-      <div class="cert"><div class="badge">M</div><div><div class="name">Meta Social Media Marketing</div><div class="issuer">Meta &amp; Coursera</div></div></div>
-      <div class="cert"><div class="badge">G</div><div><div class="name">Fundamentals of Digital Marketing</div><div class="issuer">Google Digital Garage</div></div></div>
-      <div class="cert"><div class="badge">B</div><div><div class="name">Delivering Service Excellence</div><div class="issuer">British Council</div></div></div>
+      <div class="cert" onclick="openLightbox('https://picsum.photos/seed/cert-google-ads/800/600','Google Ads Search — replace with your certificate image')">
+        <div class="badge">G</div>
+        <div><div class="name">Google Ads Search</div><div class="issuer">Google Skillshop</div></div>
+        <div class="view-hint">VIEW ↗</div>
+      </div>
+      <div class="cert" onclick="openLightbox('https://picsum.photos/seed/cert-meta/800/600','Meta Social Media Marketing — replace with your certificate image')">
+        <div class="badge">M</div>
+        <div><div class="name">Meta Social Media Marketing</div><div class="issuer">Meta &amp; Coursera</div></div>
+        <div class="view-hint">VIEW ↗</div>
+      </div>
+      <div class="cert" onclick="openLightbox('https://picsum.photos/seed/cert-digital-garage/800/600','Fundamentals of Digital Marketing — replace with your certificate image')">
+        <div class="badge">G</div>
+        <div><div class="name">Fundamentals of Digital Marketing</div><div class="issuer">Google Digital Garage</div></div>
+        <div class="view-hint">VIEW ↗</div>
+      </div>
+      <div class="cert" onclick="openLightbox('https://picsum.photos/seed/cert-british-council/800/600','Delivering Service Excellence — replace with your certificate image')">
+        <div class="badge">B</div>
+        <div><div class="name">Delivering Service Excellence</div><div class="issuer">British Council</div></div>
+        <div class="view-hint">VIEW ↗</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="media">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">06</span><span class="sec-title">Media &amp; Creative Work</span>
+    </div>
+    <p class="panel-note reveal">Beyond campaign strategy, I've worked hands-on across creative production — from assistant directing on drama sets to photography and creative/design direction for brand campaigns. <span class="fill">[ADD/REPLACE: swap every image below with real photos from your work]</span></p>
+
+    <div class="tabs reveal">
+      <button class="tab-btn active" data-tab="ad" onclick="switchTab('ad')">Assistant Direction — Drama/Film</button>
+      <button class="tab-btn" data-tab="photo" onclick="switchTab('photo')">Photography</button>
+      <button class="tab-btn" data-tab="creative" onclick="switchTab('creative')">Creative Direction — Campaigns</button>
+      <button class="tab-btn" data-tab="design" onclick="switchTab('design')">Design Direction</button>
+    </div>
+
+    <div class="gallery-panel active" id="panel-ad">
+      <div class="gallery-grid">
+        <div class="gallery-item" onclick="openLightbox('https://picsum.photos/seed/ad-set-1/700/875','Behind the scenes — replace with your set photo')"><img src="https://picsum.photos/seed/ad-set-1/700/875" alt="Assistant director set photo — placeholder"><div class="cap">On set — [ADD: drama/project name]</div></div>
+        <div class="gallery-item" onclick="openLightbox('https://picsum.photos/seed/ad-set-2/700/875','Behind the scenes — replace with your set photo')"><img src="https://picsum.photos/seed/ad-set-2/700/875" alt="Assistant director set photo — placeholder"><div class="cap">Direction notes — [ADD]</div></div>
+        <div class="gallery-item" onclick="openLightbox('https://picsum.photos/seed/ad-set-3/700/875','Behind the scenes — replace with your set photo')"><img src="https://picsum.photos/seed/ad-set-3/700/875" alt="Assistant director set photo — placeholder"><div class="cap">Crew &amp; cast — [ADD]</div></div>
+        <div class="gallery-item" onclick="openLightbox('https://picsum.photos/seed/ad-set-4/700/875','Behind the scenes — replace with your set photo')"><img src="https://picsum.photos/seed/ad-set-4/700/875" alt="Assistant director set photo — placeholder"><div class="cap">Production still — [ADD]</div></div>
+      </div>
+    </div>
+
+    <div class="gallery-panel" id="panel-photo">
+      <div class="gallery-grid">
+        <div class="gallery-item" onclick="openLightbox('https://picsum.photos/seed/photo-1/700/875','Photography sample — replace with your shot')"><img src="https://picsum.photos/seed/photo-1/700/875" alt="Photography sample — placeholder"><div class="cap">[ADD: shoot title]</div></div>
+        <div class="gallery-item" onclick="openLightbox('https://picsum.photos/seed/photo-2/700/875','Photography sample — replace with your shot')"><img src="https://picsum.photos/seed/photo-2/700/875" alt="Photography sample — placeholder"><div class="cap">[ADD: shoot title]</div></div>
+        <div class="gallery-item" onclick="openLightbox('https://picsum.photos/seed/photo-3/700/875','Photography sample — replace with your shot')"><img src="https://picsum.photos/seed/photo-3/700/875" alt="Photography sample — placeholder"><div class="cap">[ADD: shoot title]</div></div>
+        <div class="gallery-item" onclick="openLightbox('https://picsum.photos/seed/photo-4/700/875','Photography sample — replace with your shot')"><img src="https://picsum.photos/seed/photo-4/700/875" alt="Photography sample — placeholder"><div class="cap">[ADD: shoot title]</div></div>
+      </div>
+    </div>
+
+    <div class="gallery-panel" id="panel-creative">
+      <div class="gallery-grid">
+        <div class="gallery-item" onclick="openLightbox('https://picsum.photos/seed/creative-1/700/875','Campaign creative — replace with your work')"><img src="https://picsum.photos/seed/creative-1/700/875" alt="Creative direction sample — placeholder"><div class="cap">[ADD: campaign name]</div></div>
+        <div class="gallery-item" onclick="openLightbox('https://picsum.photos/seed/creative-2/700/875','Campaign creative — replace with your work')"><img src="https://picsum.photos/seed/creative-2/700/875" alt="Creative direction sample — placeholder"><div class="cap">[ADD: campaign name]</div></div>
+        <div class="gallery-item" onclick="openLightbox('https://picsum.photos/seed/creative-3/700/875','Campaign creative — replace with your work')"><img src="https://picsum.photos/seed/creative-3/700/875" alt="Creative direction sample — placeholder"><div class="cap">[ADD: campaign name]</div></div>
+        <div class="gallery-item" onclick="openLightbox('https://picsum.photos/seed/creative-4/700/875','Campaign creative — replace with your work')"><img src="https://picsum.photos/seed/creative-4/700/875" alt="Creative direction sample — placeholder"><div class="cap">[ADD: campaign name]</div></div>
+      </div>
+    </div>
+
+    <div class="gallery-panel" id="panel-design">
+      <div class="gallery-grid">
+        <div class="gallery-item" onclick="openLightbox('https://picsum.photos/seed/design-1/700/875','Design direction — replace with your work')"><img src="https://picsum.photos/seed/design-1/700/875" alt="Design direction sample — placeholder"><div class="cap">[ADD: project name]</div></div>
+        <div class="gallery-item" onclick="openLightbox('https://picsum.photos/seed/design-2/700/875','Design direction — replace with your work')"><img src="https://picsum.photos/seed/design-2/700/875" alt="Design direction sample — placeholder"><div class="cap">[ADD: project name]</div></div>
+        <div class="gallery-item" onclick="openLightbox('https://picsum.photos/seed/design-3/700/875','Design direction — replace with your work')"><img src="https://picsum.photos/seed/design-3/700/875" alt="Design direction sample — placeholder"><div class="cap">[ADD: project name]</div></div>
+        <div class="gallery-item" onclick="openLightbox('https://picsum.photos/seed/design-4/700/875','Design direction — replace with your work')"><img src="https://picsum.photos/seed/design-4/700/875" alt="Design direction sample — placeholder"><div class="cap">[ADD: project name]</div></div>
+      </div>
     </div>
   </div>
 </section>
@@ -495,12 +710,13 @@
       <div class="contact-cta">
         <h2>Let's talk about your next campaign, brand, or growth goal.</h2>
         <p>Open to Digital Marketing Manager, Brand Manager, Brand Communication Manager, and Marketing Manager roles — remote or Dhaka-based.</p>
+        <!-- REPLACE href with your hosted resume PDF link -->
+        <a class="btn btn-solid" href="#" download>⬇ Download Resume (PDF)</a>
       </div>
       <div class="contact-links">
         <a href="mailto:fokrul.islam.arno@gmail.com"><span class="k">Email</span>fokrul.islam.arno@gmail.com</a>
         <a href="tel:+8801723579924"><span class="k">Phone</span>+880 1723 579924</a>
         <a href="https://linkedin.com/in/mfisarno" target="_blank" rel="noopener"><span class="k">LinkedIn</span>linkedin.com/in/mfisarno</a>
-        <a href="./Mohd_Fokrul_Islam_Resume.pdf" target="_blank" download class="resume-btn">Resume</a>
       </div>
     </div>
     <div class="foot-bottom">
@@ -510,32 +726,104 @@
   </div>
 </footer>
 
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <button class="lb-close" onclick="closeLightbox(event)">CLOSE ✕</button>
+  <img id="lightboxImg" src="" alt="Preview">
+  <div class="lb-cap" id="lightboxCap"></div>
+</div>
+
 <script>
-  // scroll reveal
+  /* ---------- scroll reveal ---------- */
   const revealEls = document.querySelectorAll('.reveal');
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
   }, {threshold:0.15});
   revealEls.forEach(el=>io.observe(el));
-  document.querySelector('.ticker').classList.add('in'); // hero stats visible immediately
+  document.querySelector('.ticker').classList.add('in');
 
-  // count-up animation for stats
+  /* ---------- count-up stats ---------- */
   const counters = document.querySelectorAll('[data-count]');
   counters.forEach(el=>{
     const target = parseFloat(el.getAttribute('data-count'));
     const decimals = parseInt(el.getAttribute('data-decimal') || '0');
-    let current = 0;
     const duration = 1200;
     const start = performance.now();
     function tick(now){
       const p = Math.min((now-start)/duration, 1);
-      current = target * p;
+      const current = target * p;
       el.textContent = current.toFixed(decimals);
       if(p < 1) requestAnimationFrame(tick);
       else el.textContent = target.toFixed(decimals);
     }
     requestAnimationFrame(tick);
   });
+
+  /* ---------- lightbox ---------- */
+  function openLightbox(src, caption){
+    const lb = document.getElementById('lightbox');
+    document.getElementById('lightboxImg').src = src;
+    document.getElementById('lightboxCap').textContent = caption || '';
+    lb.classList.add('open');
+  }
+  function closeLightbox(e){
+    if(e.target.id === 'lightbox' || e.target.classList.contains('lb-close')){
+      document.getElementById('lightbox').classList.remove('open');
+    }
+  }
+  document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') document.getElementById('lightbox').classList.remove('open'); });
+
+  /* ---------- media tabs ---------- */
+  function switchTab(tab){
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active', b.dataset.tab === tab));
+    document.querySelectorAll('.gallery-panel').forEach(p=>p.classList.remove('active'));
+    document.getElementById('panel-' + tab).classList.add('active');
+  }
+
+  /* ---------- dynamic hero texture: animated dot-grid canvas ---------- */
+  (function(){
+    const canvas = document.getElementById('heroCanvas');
+    const ctx = canvas.getContext('2d');
+    const visual = document.getElementById('heroVisual');
+    let w, h, dots = [];
+
+    function resize(){
+      w = canvas.width = visual.clientWidth;
+      h = canvas.height = visual.clientHeight;
+      dots = [];
+      const gap = 34;
+      for(let x = gap/2; x < w; x += gap){
+        for(let y = gap/2; y < h; y += gap){
+          dots.push({x, y, baseX:x, baseY:y});
+        }
+      }
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    let mx = -9999, my = -9999;
+    visual.addEventListener('mousemove', (e)=>{
+      const r = visual.getBoundingClientRect();
+      mx = e.clientX - r.left; my = e.clientY - r.top;
+    });
+    visual.addEventListener('mouseleave', ()=>{ mx = -9999; my = -9999; });
+
+    function draw(t){
+      ctx.clearRect(0,0,w,h);
+      for(const d of dots){
+        const dx = d.baseX - mx, dy = d.baseY - my;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        const influence = Math.max(0, 1 - dist/140);
+        const wobble = Math.sin(t/1800 + d.baseX*0.02 + d.baseY*0.02) * 2;
+        const r = 1.3 + influence*2.4;
+        ctx.beginPath();
+        ctx.arc(d.baseX + wobble*0.3, d.baseY + wobble*0.3, r, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(232,241,236,${0.12 + influence*0.55})`;
+        ctx.fill();
+      }
+      requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
+  })();
 </script>
 
 </body>
