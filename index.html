@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mohd. Fokrul Islam — Digital Marketing Manager</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=Anton&display=swap" rel="stylesheet">
 <style>
   :root{
     --ink:#0F2036;
@@ -22,6 +22,9 @@
     --display: 'Space Grotesk', sans-serif;
     --body: 'IBM Plex Sans', sans-serif;
     --mono: 'IBM Plex Mono', monospace;
+    --poster: 'Anton', sans-serif;
+    --gold:#C9A15F;
+    --hero-dark:#0C0F14;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
@@ -75,64 +78,124 @@
   .nav-ctas .btn-outline{display:none;}
   @media (min-width:520px){ .nav-ctas .btn-outline{display:inline-flex;} }
 
-  /* ---------- HERO ---------- */
+  /* ---------- HERO (magazine cover style) ---------- */
   header.hero{border-bottom:1px solid var(--line); position:relative; overflow:hidden;}
-  .hero-grid{
-    display:grid; grid-template-columns:1.15fr 1fr; align-items:stretch; min-height:560px;
-  }
-  @media (max-width:900px){ .hero-grid{grid-template-columns:1fr; min-height:auto;} }
 
-  .hero-copy{padding:88px 32px 64px 32px; max-width:620px;}
-  @media (max-width:640px){ .hero-copy{padding:64px 20px 48px 20px;} }
-
-  .eyebrow{
-    font-family:var(--mono); font-size:12px; letter-spacing:0.12em;
-    color:var(--growth); text-transform:uppercase; font-weight:600;
-    display:flex; align-items:center; gap:10px; margin-bottom:22px;
+  .hero-magazine{
+    position:relative; min-height:750px; overflow:hidden;
+    background:var(--hero-dark); color:#fff;
   }
-  .eyebrow::before{content:''; width:26px; height:1px; background:var(--growth);}
-  h1.headline{
-    font-family:var(--display); font-weight:700;
-    font-size:clamp(32px, 4.6vw, 52px);
-    line-height:1.1; letter-spacing:-0.01em;
+  @media (max-width:900px){ .hero-magazine{min-height:auto;} }
+
+  /* REPLACE the src on .hero-bg (below in HTML) with your own portrait/photo */
+  .hero-bg{
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; object-position:60% center;
+  }
+  .hero-scrim{
+    position:absolute; inset:0;
+    background:linear-gradient(90deg,
+      rgba(12,15,20,0.97) 0%,
+      rgba(12,15,20,0.82) 24%,
+      rgba(12,15,20,0.22) 46%,
+      rgba(12,15,20,0.18) 64%,
+      rgba(12,15,20,0.55) 100%);
+  }
+  .hero-vignette{
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(12,15,20,0.15) 0%, transparent 30%, transparent 65%, rgba(12,15,20,0.65) 100%);
+  }
+  .mag-fill-note{
+    position:absolute; left:32px; bottom:14px; z-index:3;
+    font-family:var(--mono); font-size:10px; letter-spacing:0.02em;
+    color:rgba(255,255,255,0.65); background:rgba(181,66,76,0.55);
+    padding:4px 9px; border-radius:2px;
+  }
+
+  .hero-inner{
+    position:relative; z-index:2; max-width:1080px; margin:0 auto;
+    padding:52px 32px 44px; min-height:660px;
+    display:flex; flex-direction:column; justify-content:center;
+  }
+  @media (max-width:900px){ .hero-inner{min-height:auto; padding:64px 20px 48px;} }
+
+  .hero-masthead{ position:absolute; top:44px; right:32px; text-align:right; }
+  @media (max-width:900px){ .hero-masthead{display:none;} }
+  .mast-title{
+    font-family:var(--poster); font-size:20px; line-height:1.05;
+    text-transform:uppercase; letter-spacing:0.01em;
+  }
+  .mast-title span{color:var(--gold); display:block;}
+  .mast-date{
+    font-family:var(--mono); font-size:11px; letter-spacing:0.12em;
+    color:rgba(255,255,255,0.55); margin-top:10px;
+  }
+
+  .hero-left{max-width:600px;}
+  .eyebrow-mag{
+    font-family:var(--mono); font-size:12.5px; letter-spacing:0.18em;
+    text-transform:uppercase; font-weight:600; color:#fff;
+    padding-bottom:14px; margin-bottom:22px;
+    border-bottom:1px solid rgba(255,255,255,0.35);
+    display:inline-block;
+  }
+  h1.mag-headline{
+    font-family:var(--poster); text-transform:uppercase;
+    font-size:clamp(48px, 6.6vw, 88px);
+    line-height:0.94; letter-spacing:0.05em;
     margin-bottom:22px;
   }
-  h1.headline .accent{color:var(--growth);}
-  .subhead{
-    font-size:16.5px; color:var(--ink-soft); margin-bottom:32px;
+  h1.mag-headline .line{display:block;}
+  h1.mag-headline .accent{color:var(--gold);}
+  .mag-sub{
+    font-family:var(--body); font-weight:600; font-size:18.5px;
+    line-height:1.4; color:#fff; margin-bottom:16px; max-width:480px;
   }
-  .hero-meta{
-    display:flex; flex-wrap:wrap; gap:10px 22px; font-size:13px; color:var(--ink-soft);
-    font-family:var(--mono); margin-bottom:36px;
+  .mag-desc{
+    font-size:14.5px; line-height:1.65; color:rgba(255,255,255,0.72);
+    max-width:480px; margin-bottom:34px;
   }
-  .hero-meta span{display:flex; align-items:center; gap:7px;}
-  .dot{width:5px; height:5px; border-radius:50%; background:var(--growth); display:inline-block; flex-shrink:0;}
-  .hero-actions{display:flex; flex-wrap:wrap; gap:12px;}
+  .mag-desc b{color:var(--gold); font-weight:600;}
 
-  /* right visual panel: image + dynamic texture overlay */
-  .hero-visual{
-    position:relative; overflow:hidden; background:var(--ink);
-    min-height:340px;
+  .hero-actions{display:flex; flex-wrap:wrap; gap:12px; margin-bottom:38px;}
+  .btn-outline-light{border:1px solid rgba(255,255,255,0.55); color:#fff; background:transparent;}
+  .btn-outline-light:hover{background:#fff; color:var(--hero-dark); border-color:#fff;}
+
+  .feature-row{display:flex; flex-wrap:wrap; gap:0;}
+  .feature{
+    display:flex; flex-direction:column; gap:9px;
+    padding:0 22px; border-left:1px solid rgba(255,255,255,0.25);
   }
-  .hero-visual img.bg{
-    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
-    opacity:0.55; filter:grayscale(35%) contrast(1.05);
+  .feature:first-child{padding-left:0; border-left:none;}
+  @media (max-width:560px){ .feature{padding:0 14px;} }
+  .feature svg{width:22px; height:22px; stroke:var(--gold); fill:none; stroke-width:1.8;}
+  .feature span{
+    font-family:var(--mono); font-size:10px; font-weight:600;
+    letter-spacing:0.05em; color:rgba(255,255,255,0.85); line-height:1.4;
   }
-  .hero-visual .tint{
-    position:absolute; inset:0;
-    background:linear-gradient(155deg, rgba(15,32,54,0.35), rgba(15,32,54,0.85) 75%);
+
+  .hero-quote{
+    position:absolute; right:32px; top:52%; transform:translateY(-50%);
+    max-width:230px; text-align:left;
   }
-  .hero-visual canvas{position:absolute; inset:0; width:100%; height:100%;}
-  .hero-visual .visual-caption{
-    position:absolute; left:24px; bottom:22px; right:24px;
-    font-family:var(--mono); font-size:11px; color:rgba(255,255,255,0.7);
-    letter-spacing:0.04em;
+  @media (max-width:1040px){ .hero-quote{display:none;} }
+  .quote-mark{font-family:var(--poster); font-size:46px; color:var(--gold); line-height:0.5; margin-bottom:6px;}
+  .hero-quote p{font-size:13.5px; line-height:1.55; color:rgba(255,255,255,0.85); margin-bottom:12px;}
+  .quote-sign{font-family:var(--display); font-style:italic; font-size:13px; color:var(--gold); opacity:0.85;}
+
+  .hero-barcode{
+    position:absolute; right:32px; bottom:34px;
+    display:flex; align-items:center; gap:10px;
   }
-  .hero-visual .fill-note{
-    position:absolute; top:18px; right:18px;
-    font-family:var(--mono); font-size:10.5px; color:#fff;
-    background:rgba(181,66,76,0.85); padding:5px 9px; border-radius:2px;
-    letter-spacing:0.02em; max-width:170px; text-align:right; line-height:1.4;
+  @media (max-width:900px){ .hero-barcode{display:none;} }
+  .barcode-bars{
+    width:16px; height:74px;
+    background:repeating-linear-gradient(90deg, rgba(255,255,255,0.85) 0 2px, transparent 2px 4px);
+  }
+  .barcode-label{
+    writing-mode:vertical-rl; transform:rotate(180deg);
+    font-family:var(--mono); font-size:10px; letter-spacing:0.16em;
+    color:rgba(255,255,255,0.55);
   }
 
   /* stat ticker */
@@ -158,10 +221,10 @@
   @media (max-width:640px){ .sec-sub{margin-left:0; width:100%;} }
 
   /* ---------- ABOUT ---------- */
-  .about-grid{display:grid; grid-template-columns:220px 1fr; gap:48px; align-items:start;}
+  .about-grid{display:grid; grid-template-columns:320px 1fr; gap:48px; align-items:start;}
   @media (max-width:680px){ .about-grid{grid-template-columns:1fr; justify-items:center;} }
   .portrait-frame{
-    width:220px; aspect-ratio:4/5; border-radius:6px; overflow:hidden;
+    width:280px; aspect-ratio:4/5; border-radius:6px; overflow:hidden;
     position:relative; background:linear-gradient(155deg,#132A45,var(--ink));
     flex-shrink:0;
   }
@@ -354,37 +417,73 @@
     </div>
     <div class="nav-ctas">
       <!-- REPLACE href with your hosted resume PDF link, e.g. "resume/Fokrul_Islam_Resume.pdf" -->
-      <a class="btn btn-outline" href="./Mohd_Fokrul_Islam_Resume.pdf" download>⬇ Resume</a>
+      <a class="btn btn-outline" href="Mohd_Fokrul_Islam_Resume.pdf" download>⬇ Resume</a>
       <a class="btn btn-solid" href="mailto:fokrul.islam.arno@gmail.com">Get in touch</a>
     </div>
   </div>
 </nav>
 
 <header class="hero">
-  <div class="hero-grid">
-    <div class="hero-copy">
-      <div class="eyebrow">Digital Marketing Manager</div>
-      <h1 class="headline">Turning ad budgets into <span class="accent">pipeline, brand equity,</span> and growth.</h1>
-      <p class="subhead">7+ years leading full-funnel digital strategy, brand management, and performance marketing across EdTech, Real Estate, FMCG, and International Education — from Dhaka to markets across South Asia and MENA.</p>
-      <div class="hero-meta">
-        <span><span class="dot"></span>Dhanmondi, Dhaka, Bangladesh</span>
-        <span><span class="dot"></span>fokrul.islam.arno@gmail.com</span>
-        <span><span class="dot"></span>+8801723579924</span>
-      </div>
-      <div class="hero-actions">
-        <a class="btn btn-solid" href="#work">View case studies</a>
-        <!-- REPLACE href with your hosted resume PDF link -->
-        <a class="btn btn-outline" href="./Mohd_Fokrul_Islam_Resume.pdf" download>⬇ Download Resume</a>
-      </div>
-    </div>
+  <div class="hero-magazine">
+    <!-- REPLACE this src with your own full-bleed portrait/photo (dark, moody background works best with the text overlay) -->
+    <img class="hero-bg" src="Fokrul_bg.jpeg" alt="Placeholder background — replace with your own portrait photo">
+    <div class="hero-scrim"></div>
+    <div class="hero-vignette"></div>
 
-    <div class="hero-visual" id="heroVisual">
-      <!-- REPLACE this src with your own photo or campaign/brand imagery -->
-      <img class="bg" src="Fokrul_Islam_Image.png" alt="Placeholder background — replace with your own image">
-      <canvas id="heroCanvas"></canvas>
-      <div class="tint"></div>
-      <div class="fill-note"></div>
-      <div class="visual-caption"></div>
+    <div class="hero-inner">
+
+      <div class="hero-masthead">
+        <div class="mast-title">MARKETING<span>INSIGHTS</span></div>
+        <div class="mast-date">2026</div>
+      </div>
+
+      <div class="hero-left">
+        <div class="eyebrow-mag">Digital Leader. Growth Architect.</div>
+        <h1 class="mag-headline">
+          <span class="line">Digital</span>
+          <span class="line accent">Marketing</span>
+          <span class="line">Manager</span>
+        </h1>
+        <p class="mag-sub">Turning ad budgets into pipeline, brand equity, and growth.</p>
+        <p class="mag-desc">7+ years leading full-funnel digital strategy, brand management, and performance marketing across EdTech, Real Estate, FMCG, and International Education — from Dhaka to markets across <b>South Asia</b> and <b>MENA</b>.</p>
+
+        <div class="hero-actions">
+          <a class="btn btn-solid" href="#work">View case studies</a>
+          <!-- REPLACE href with your hosted resume PDF link -->
+          <a class="btn btn-outline-light" href="Mohd_Fokrul_Islam_Resume.pdf" download>⬇ Download Resume</a>
+        </div>
+
+        <div class="feature-row">
+          <div class="feature">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="0.8" fill="currentColor"/></svg>
+            <span>STRATEGY<br>DRIVEN</span>
+          </div>
+          <div class="feature">
+            <svg viewBox="0 0 24 24"><path d="M4 19V13"/><path d="M10 19V9"/><path d="M16 19V5"/><path d="M4 19h16"/></svg>
+            <span>PERFORMANCE<br>FOCUSED</span>
+          </div>
+          <div class="feature">
+            <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.4"/><path d="M15 20c0-2.5 1.8-4.6 4-5"/></svg>
+            <span>BRAND<br>BUILDER</span>
+          </div>
+          <div class="feature">
+            <svg viewBox="0 0 24 24"><path d="M4 17l6-6 4 4 6-8"/><path d="M20 7h-4v4"/></svg>
+            <span>GROWTH<br>OBSESSED</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-quote">
+        <div class="quote-mark">&ldquo;</div>
+        <p>I don't just run campaigns. I build systems that scale brands and drive growth.</p>
+        <div class="quote-sign">— M. Fokrul Islam</div>
+      </div>
+
+      <div class="hero-barcode">
+        <div class="barcode-bars"></div>
+        <span class="barcode-label">GROWTH IS THE STRATEGY</span>
+      </div>
+
     </div>
   </div>
 
@@ -415,7 +514,7 @@
       <div class="portrait-frame">
         <!-- REPLACE this src with your own 4:5 photo — it will auto-crop to fill the frame -->
         <img src="Fokrul_Islam_Image.png" alt="Mohd. Fokrul Islam portrait — replace with your own photo">
-        <div class="portrait-tag">PLACEHOLDER — replace with your photo</div>
+        <div class="portrait-tag">Mohd Fokrul Islam</div>
       </div>
       <div class="about-text">
         <p>I'm a results-driven marketing professional who works at the intersection of performance media and brand building. Over the last seven years I've managed digital and offline marketing for brands across the EdTech, Real Estate, FMCG, and International Education sectors — running paid campaigns on Meta, Google, TikTok, and LinkedIn while also owning brand positioning, creative direction, and on-ground activations for client accounts.</p>
@@ -563,8 +662,8 @@
           <p><b>Result:</b> Reduced cost per lead by 20% on a $150K+ annual budget. <span class="fill">[ADD: enrollment numbers / lead volume]</span></p>
         </div>
         <div class="case-media" onclick="openLightbox('https://picsum.photos/seed/coursehunter-case/900/700','Course Hunter — replace with real campaign visual')">
-          <img src="https://picsum.photos/seed/coursehunter-case/900/700" alt="Course Hunter case study visual — placeholder">
-          <div class="media-flag">PLACEHOLDER</div>
+          <img src="case_02.png" alt="Course Hunter case study visual — placeholder">
+         
         </div>
       </div>
 
@@ -577,8 +676,8 @@
           <p><b>Result:</b> Reduced CPA by 18%, increased conversions by 22%, improved ROAS from 2.8x to 3.4x. <span class="fill">[ADD: client name/industry if shareable]</span></p>
         </div>
         <div class="case-media" onclick="openLightbox('https://picsum.photos/seed/ibusinessformula-case/900/700','iBusinessFormula — replace with real performance chart or creative')">
-          <img src="https://picsum.photos/seed/ibusinessformula-case/900/700" alt="iBusinessFormula case study visual — placeholder">
-          <div class="media-flag">PLACEHOLDER</div>
+          <img src="case_02.png" alt="iBusinessFormula case study visual — placeholder">
+        
         </div>
       </div>
 
@@ -591,8 +690,8 @@
           <p><b>Result:</b> Increased lead generation by 28% across markets. <span class="fill">[ADD: standout country-level win]</span></p>
         </div>
         <div class="case-media" onclick="openLightbox('https://picsum.photos/seed/tclglobal-case/900/700','TCL Global — replace with regional campaign visual or map graphic')">
-          <img src="https://picsum.photos/seed/tclglobal-case/900/700" alt="TCL Global case study visual — placeholder">
-          <div class="media-flag">PLACEHOLDER</div>
+          <img src="case_02.png" alt="TCL Global case study visual — placeholder">
+         
         </div>
       </div>
 
@@ -605,17 +704,11 @@
           <p><b>Result:</b> Consistent visual identity across all customer touchpoints — site offices, sales materials, and events. <span class="fill">[ADD: footfall / sales / launch-specific numbers]</span></p>
         </div>
         <div class="case-media" onclick="openLightbox('https://picsum.photos/seed/shamsulalamin-case/900/700','Shamsul Alamin Real Estate — replace with real BTL/print campaign photo')">
-          <img src="https://picsum.photos/seed/shamsulalamin-case/900/700" alt="Shamsul Alamin Real Estate case study visual — placeholder">
-          <div class="media-flag">PLACEHOLDER</div>
+          <img src="case_02.png" alt="Shamsul Alamin Real Estate case study visual — placeholder">
+       
         </div>
       </div>
 
-      <div class="case-card empty">
-        <div class="add-inner">
-          <div class="plus">+</div>
-          <p><b>[ADD: your next case study]</b><br>Duplicate a card above, swap the challenge / approach / result copy and image, and drop it in here.</p>
-        </div>
-      </div>
 
     </div>
   </div>
@@ -628,22 +721,22 @@
       <span class="sec-sub">click a card to view certificate</span>
     </div>
     <div class="cert-row reveal">
-      <div class="cert" onclick="openLightbox('https://picsum.photos/seed/cert-google-ads/800/600','Google Ads Search — replace with your certificate image')">
+      <div class="cert" onclick="openLightbox('Google_Ads.jpg','Google Ads Search — replace with your certificate image')">
         <div class="badge">G</div>
         <div><div class="name">Google Ads Search</div><div class="issuer">Google Skillshop</div></div>
         <div class="view-hint">VIEW ↗</div>
       </div>
-      <div class="cert" onclick="openLightbox('https://picsum.photos/seed/cert-meta/800/600','Meta Social Media Marketing — replace with your certificate image')">
+      <div class="cert" onclick="openLightbox('Socialmedia.jpg','Meta Social Media Marketing — replace with your certificate image')">
         <div class="badge">M</div>
         <div><div class="name">Meta Social Media Marketing</div><div class="issuer">Meta &amp; Coursera</div></div>
         <div class="view-hint">VIEW ↗</div>
       </div>
-      <div class="cert" onclick="openLightbox('https://picsum.photos/seed/cert-digital-garage/800/600','Fundamentals of Digital Marketing — replace with your certificate image')">
+      <div class="cert" onclick="openLightbox('FODM.jpg','Fundamentals of Digital Marketing — replace with your certificate image')">
         <div class="badge">G</div>
         <div><div class="name">Fundamentals of Digital Marketing</div><div class="issuer">Google Digital Garage</div></div>
         <div class="view-hint">VIEW ↗</div>
       </div>
-      <div class="cert" onclick="openLightbox('https://picsum.photos/seed/cert-british-council/800/600','Delivering Service Excellence — replace with your certificate image')">
+      <div class="cert" onclick="openLightbox('Career_certi.jpg','Delivering Service Excellence — replace with your certificate image')">
         <div class="badge">B</div>
         <div><div class="name">Delivering Service Excellence</div><div class="issuer">British Council</div></div>
         <div class="view-hint">VIEW ↗</div>
@@ -668,37 +761,41 @@
 
     <div class="gallery-panel active" id="panel-ad">
       <div class="gallery-grid">
-        <div class="gallery-item" onclick="openLightbox('https://picsum.photos/seed/ad-set-1/700/875','Behind the scenes — replace with your set photo')"><img src="https://picsum.photos/seed/ad-set-1/700/875" alt="Assistant director set photo — placeholder"><div class="cap">On set — [ADD: drama/project name]</div></div>
-        <div class="gallery-item" onclick="openLightbox('https://picsum.photos/seed/ad-set-2/700/875','Behind the scenes — replace with your set photo')"><img src="https://picsum.photos/seed/ad-set-2/700/875" alt="Assistant director set photo — placeholder"><div class="cap">Direction notes — [ADD]</div></div>
-        <div class="gallery-item" onclick="openLightbox('https://picsum.photos/seed/ad-set-3/700/875','Behind the scenes — replace with your set photo')"><img src="https://picsum.photos/seed/ad-set-3/700/875" alt="Assistant director set photo — placeholder"><div class="cap">Crew &amp; cast — [ADD]</div></div>
-        <div class="gallery-item" onclick="openLightbox('https://picsum.photos/seed/ad-set-4/700/875','Behind the scenes — replace with your set photo')"><img src="https://picsum.photos/seed/ad-set-4/700/875" alt="Assistant director set photo — placeholder"><div class="cap">Production still — [ADD]</div></div>
+        <div class="gallery-item" onclick="openLightbox('Media.png','Behind the scenes — replace with your set photo')"><img src="Media.png" alt="Assistant director set photo — placeholder"><div class="cap">On set — [ADD: drama/project name]</div></div>
+        <div class="gallery-item" onclick="openLightbox('Media.png','Behind the scenes — replace with your set photo')"><img src="Media.png" alt="Assistant director set photo — placeholder"><div class="cap">Direction notes — [ADD]</div></div>
+        <div class="gallery-item" onclick="openLightbox('Media.png','Behind the scenes — replace with your set photo')"><img src="Media.png" alt="Assistant director set photo — placeholder"><div class="cap">Crew &amp; cast — [ADD]</div></div>
+        <div class="gallery-item" onclick="openLightbox('Media.png','Behind the scenes — replace with your set photo')"><img src="Media.png" alt="Assistant director set photo — placeholder"><div class="cap">Production still — [ADD]</div></div>
       </div>
     </div>
 
     <div class="gallery-panel" id="panel-photo">
       <div class="gallery-grid">
-        <div class="gallery-item" onclick="openLightbox('https://picsum.photos/seed/photo-1/700/875','Photography sample — replace with your shot')"><img src="https://picsum.photos/seed/photo-1/700/875" alt="Photography sample — placeholder"><div class="cap">[ADD: shoot title]</div></div>
-        <div class="gallery-item" onclick="openLightbox('https://picsum.photos/seed/photo-2/700/875','Photography sample — replace with your shot')"><img src="https://picsum.photos/seed/photo-2/700/875" alt="Photography sample — placeholder"><div class="cap">[ADD: shoot title]</div></div>
-        <div class="gallery-item" onclick="openLightbox('https://picsum.photos/seed/photo-3/700/875','Photography sample — replace with your shot')"><img src="https://picsum.photos/seed/photo-3/700/875" alt="Photography sample — placeholder"><div class="cap">[ADD: shoot title]</div></div>
-        <div class="gallery-item" onclick="openLightbox('https://picsum.photos/seed/photo-4/700/875','Photography sample — replace with your shot')"><img src="https://picsum.photos/seed/photo-4/700/875" alt="Photography sample — placeholder"><div class="cap">[ADD: shoot title]</div></div>
+        <div class="gallery-item" onclick="openLightbox('Media.png','Photography sample — replace with your shot')"><img src="Media.png" alt="Photography sample — placeholder"><div class="cap">[ADD: shoot title]</div></div>
+        <div class="gallery-item" onclick="openLightbox('Media.png','Photography sample — replace with your shot')"><img src="Media.png" alt="Photography sample — placeholder"><div class="cap">[ADD: shoot title]</div></div>
+        <div class="gallery-item" onclick="openLightbox('Media.png','Photography sample — replace with your shot')"><img src="Media.png" alt="Photography sample — placeholder"><div class="cap">[ADD: shoot title]</div></div>
+        <div class="gallery-item" onclick="openLightbox('Media.png','Photography sample — replace with your shot')"><img src="Media.png" alt="Photography sample — placeholder"><div class="cap">[ADD: shoot title]</div></div>
       </div>
     </div>
 
     <div class="gallery-panel" id="panel-creative">
       <div class="gallery-grid">
-        <div class="gallery-item" onclick="openLightbox('https://picsum.photos/seed/creative-1/700/875','Campaign creative — replace with your work')"><img src="https://picsum.photos/seed/creative-1/700/875" alt="Creative direction sample — placeholder"><div class="cap">[ADD: campaign name]</div></div>
-        <div class="gallery-item" onclick="openLightbox('https://picsum.photos/seed/creative-2/700/875','Campaign creative — replace with your work')"><img src="https://picsum.photos/seed/creative-2/700/875" alt="Creative direction sample — placeholder"><div class="cap">[ADD: campaign name]</div></div>
-        <div class="gallery-item" onclick="openLightbox('https://picsum.photos/seed/creative-3/700/875','Campaign creative — replace with your work')"><img src="https://picsum.photos/seed/creative-3/700/875" alt="Creative direction sample — placeholder"><div class="cap">[ADD: campaign name]</div></div>
-        <div class="gallery-item" onclick="openLightbox('https://picsum.photos/seed/creative-4/700/875','Campaign creative — replace with your work')"><img src="https://picsum.photos/seed/creative-4/700/875" alt="Creative direction sample — placeholder"><div class="cap">[ADD: campaign name]</div></div>
+        <div class="gallery-item" onclick="openLightbox('Media.png','Campaign creative — replace with your work')"><img src="Media.png" alt="Creative direction sample — placeholder"><div class="cap">[ADD: campaign name]</div></div>
+        <div class="gallery-item" onclick="openLightbox('Media.png','Campaign creative — replace with your work')"><img src="Media.png" alt="Creative direction sample — placeholder"><div class="cap">[ADD: campaign name]</div></div>
+        <div class="gallery-item" onclick="openLightbox('Media.png','Campaign creative — replace with your work')"><img src="Media.png" alt="Creative direction sample — placeholder"><div class="cap">[ADD: campaign name]</div></div>
+        <div class="gallery-item" onclick="openLightbox('Media.png','Campaign creative — replace with your work')"><img src="Media.png" alt="Creative direction sample — placeholder"><div class="cap">[ADD: campaign name]</div></div>
       </div>
     </div>
 
     <div class="gallery-panel" id="panel-design">
       <div class="gallery-grid">
-        <div class="gallery-item" onclick="openLightbox('https://picsum.photos/seed/design-1/700/875','Design direction — replace with your work')"><img src="https://picsum.photos/seed/design-1/700/875" alt="Design direction sample — placeholder"><div class="cap">[ADD: project name]</div></div>
-        <div class="gallery-item" onclick="openLightbox('https://picsum.photos/seed/design-2/700/875','Design direction — replace with your work')"><img src="https://picsum.photos/seed/design-2/700/875" alt="Design direction sample — placeholder"><div class="cap">[ADD: project name]</div></div>
-        <div class="gallery-item" onclick="openLightbox('https://picsum.photos/seed/design-3/700/875','Design direction — replace with your work')"><img src="https://picsum.photos/seed/design-3/700/875" alt="Design direction sample — placeholder"><div class="cap">[ADD: project name]</div></div>
-        <div class="gallery-item" onclick="openLightbox('https://picsum.photos/seed/design-4/700/875','Design direction — replace with your work')"><img src="https://picsum.photos/seed/design-4/700/875" alt="Design direction sample — placeholder"><div class="cap">[ADD: project name]</div></div>
+        
+<div class="gallery-item" onclick="openLightbox('Media.png','Design direction — replace with your work')"><img src="Media.png" alt="Design direction sample — placeholder"><div class="cap">[ADD: project name]</div></div>
+        
+<div class="gallery-item" onclick="openLightbox('Media.png','Design direction — replace with your work')"><img src="Media.png" alt="Design direction sample — placeholder"><div class="cap">[ADD: project name]</div></div>
+        
+<div class="gallery-item" onclick="openLightbox('Media.png','Design direction — replace with your work')"><img src="Media.png" alt="Design direction sample — placeholder"><div class="cap">[ADD: project name]</div></div>
+        
+<div class="gallery-item" onclick="openLightbox('Media.png','Design direction — replace with your work')"><img src="Media.png" alt="Design direction sample — placeholder"><div class="cap">[ADD: project name]</div></div>
       </div>
     </div>
   </div>
@@ -710,18 +807,19 @@
       <div class="contact-cta">
         <h2>Let's talk about your next campaign, brand, or growth goal.</h2>
         <p>Open to Digital Marketing Manager, Brand Manager, Brand Communication Manager, and Marketing Manager roles — remote or Dhaka-based.</p>
+
       </div>
       <div class="contact-links">
         <a href="mailto:fokrul.islam.arno@gmail.com"><span class="k">Email</span>fokrul.islam.arno@gmail.com</a>
         <a href="tel:+8801723579924"><span class="k">Phone</span>+880 1723 579924</a>
         <a href="https://linkedin.com/in/mfisarno" target="_blank" rel="noopener"><span class="k">LinkedIn</span>linkedin.com/in/mfisarno</a>
-                <!-- REPLACE href with your hosted resume PDF link -->
-        <a class="btn btn-solid" href="./Mohd_Fokrul_Islam_Resume.pdf" download>⬇ Download Resume (PDF)</a>
+        <!-- REPLACE href with your hosted resume PDF link -->
+        <a class="btn btn-solid" href="Mohd_Fokrul_Islam_Resume.pdf" download>⬇ Download Resume (PDF)</a>
       </div>
     </div>
     <div class="foot-bottom">
       <span>Mohd. Fokrul Islam — Dhanmondi, Dhaka, Bangladesh</span>
-      <span><span class="fill">[ADD: portfolio domain / hosting link once published]</span></span>
+      <span>©2026 Fokrul Islam, All rights reserved</span>
     </div>
   </div>
 </footer>
@@ -779,50 +877,18 @@
     document.getElementById('panel-' + tab).classList.add('active');
   }
 
-  /* ---------- dynamic hero texture: animated dot-grid canvas ---------- */
+  /* ---------- subtle animated underline shimmer on the eyebrow ---------- */
   (function(){
-    const canvas = document.getElementById('heroCanvas');
-    const ctx = canvas.getContext('2d');
-    const visual = document.getElementById('heroVisual');
-    let w, h, dots = [];
-
-    function resize(){
-      w = canvas.width = visual.clientWidth;
-      h = canvas.height = visual.clientHeight;
-      dots = [];
-      const gap = 34;
-      for(let x = gap/2; x < w; x += gap){
-        for(let y = gap/2; y < h; y += gap){
-          dots.push({x, y, baseX:x, baseY:y});
-        }
-      }
+    const el = document.querySelector('.eyebrow-mag');
+    if(!el) return;
+    let t = 0;
+    function pulse(){
+      t += 0.02;
+      const glow = 0.35 + Math.sin(t) * 0.15;
+      el.style.borderBottomColor = `rgba(201,161,95,${0.4 + glow*0.3})`;
+      requestAnimationFrame(pulse);
     }
-    window.addEventListener('resize', resize);
-    resize();
-
-    let mx = -9999, my = -9999;
-    visual.addEventListener('mousemove', (e)=>{
-      const r = visual.getBoundingClientRect();
-      mx = e.clientX - r.left; my = e.clientY - r.top;
-    });
-    visual.addEventListener('mouseleave', ()=>{ mx = -9999; my = -9999; });
-
-    function draw(t){
-      ctx.clearRect(0,0,w,h);
-      for(const d of dots){
-        const dx = d.baseX - mx, dy = d.baseY - my;
-        const dist = Math.sqrt(dx*dx + dy*dy);
-        const influence = Math.max(0, 1 - dist/140);
-        const wobble = Math.sin(t/1800 + d.baseX*0.02 + d.baseY*0.02) * 2;
-        const r = 1.3 + influence*2.4;
-        ctx.beginPath();
-        ctx.arc(d.baseX + wobble*0.3, d.baseY + wobble*0.3, r, 0, Math.PI*2);
-        ctx.fillStyle = `rgba(232,241,236,${0.12 + influence*0.55})`;
-        ctx.fill();
-      }
-      requestAnimationFrame(draw);
-    }
-    requestAnimationFrame(draw);
+    requestAnimationFrame(pulse);
   })();
 </script>
 
