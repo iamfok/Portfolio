@@ -52,17 +52,24 @@
     display:flex; align-items:center; justify-content:space-between;
     height:68px;
   }
-  .brand{
-    font-family:var(--display); 
-    font-weight:700; 
+.brand{
+    font-family:var(--display);
+    font-weight:700;
     font-size:17px;
     letter-spacing:0.02em;
     text-decoration:none;
     color:var(--ink);
-  }
-  .brand:hover{
-    color:var(--ink);
-    text-decoration:none;
+    cursor:pointer;
+}
+
+.brand,
+.brand:visited,
+.brand:hover,
+.brand:active,
+.brand:focus{
+    color: var(--ink) !important;
+    text-decoration: none !important;
+}
 }
   .brand span{color:var(--growth);}
   .navlinks{display:flex; gap:26px; font-size:14px; font-weight:500;}
@@ -424,7 +431,7 @@
 <nav>
   <div class="wrap">
         <div class="navlinks">
-      <a href="" class="brand">MOHD FOKRUL ISLAM<span>.</span></a>
+      <a href="" class="brand">MOHD FOKRUL ISLAM</a>
       <a href="#about">About</a>
       <a href="#experience">Experience</a>
       <a href="#skills">Skills</a>
@@ -673,7 +680,7 @@
    <div class="skill-group">
         <h4>Design &amp; others</h4>
         <div class="pillbox">
-          <span class="pill">Adove Photoshop & Illustrator</span>
+          <span class="pill">Adobe Photoshop & Illustrator</span>
           <span class="pill">Adobe Premirepro</span>
           <span class="pill">Canva & Capcut</span>
           <span class="pill">Microsoft Package</span>
